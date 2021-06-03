@@ -1,4 +1,4 @@
-![www.ana-am.es](./src/ana_am_es-logo.png)
+![www.ana-am.es](./src/images/ana_am_es-logo.png)
 
 # Administrador de pacientes
 
