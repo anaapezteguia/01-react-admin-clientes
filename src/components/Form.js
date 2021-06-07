@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 const Form = () => {
   // crear citas
@@ -9,6 +10,8 @@ const Form = () => {
     hora: '',
     sintomas: '',
   });
+  const [error, actualizarError] = useState(false);
+
   // actualizar inputs
   const handleChange = (ev) => {
     setCita({
@@ -16,13 +19,44 @@ const Form = () => {
       [ev.target.name]: ev.target.value,
     });
   };
-  // extraer valores con destructuring
+  // extraer valores con destructuring para acortar el código
   const { mascota, propietario, fecha, hora, sintomas } = cita;
 
+  // cuando el usuario clica en enviar cita
+  const submitCita = (ev) => {
+    ev.preventDefault();
+
+    // validar
+    if (
+      mascota.trim() === '' ||
+      propietario.trim() === '' ||
+      fecha.trim() === '' ||
+      hora.trim() === '' ||
+      sintomas.trim() === ''
+    ) {
+      actualizarError(true);
+      return;
+    }
+    // eliminar el mensaje previo
+    actualizarError(false);
+
+    // asignar ID
+    // instalamos una librería para generar IDs "npm i uuid" y la importamos
+    cita.id = uuidv4();
+
+    // crear cita
+
+    // reiniciar form
+  };
   return (
     <>
       <h2>Concertar cita</h2>
-      <form>
+      {/* aquí no podemos poner if, ponemos un ternario */}
+      {error ? (
+        <p className="alerta-error">Todos los campos son obligatorios</p>
+      ) : null}
+
+      <form onSubmit={submitCita}>
         <label>Mascota</label>
         <input
           type="text"
