@@ -2,113 +2,111 @@ import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Proptypes from 'prop-types';
 
-const Form = ({ crearCita }) => {
-  // crear citas
-  const [cita, setCita] = useState({
-    mascota: '',
-    propietario: '',
-    fecha: '',
-    hora: '',
-    sintomas: '',
+const Form = ({ createAppointment }) => {
+  // create appointments
+  const [appointment, setAppointment] = useState({
+    pet: '',
+    owner: '',
+    date: '',
+    hour: '',
+    symptoms: '',
   });
-  const [error, actualizarError] = useState(false);
+  const [error, updateError] = useState(false);
 
-  // actualizar inputs
+  // update inputs
   const handleChange = (ev) => {
-    setCita({
-      ...cita,
+    setAppointment({
+      ...appointment,
       [ev.target.name]: ev.target.value,
     });
   };
-  // extraer valores con destructuring para acortar el código
-  const { mascota, propietario, fecha, hora, sintomas } = cita;
+  // extract values with destructuring to shorten the code
+  const { pet, owner, date, hour, symptoms } = appointment;
 
-  // cuando el usuario clica en enviar cita
-  const submitCita = (ev) => {
+  // what happens when the user clicks on 'arrange appointment'
+  const submitAppointment = (ev) => {
     ev.preventDefault();
 
-    // validar
+    // validation
     if (
-      mascota.trim() === '' ||
-      propietario.trim() === '' ||
-      fecha.trim() === '' ||
-      hora.trim() === '' ||
-      sintomas.trim() === ''
+      pet.trim() === '' ||
+      owner.trim() === '' ||
+      date.trim() === '' ||
+      hour.trim() === '' ||
+      symptoms.trim() === ''
     ) {
-      actualizarError(true);
+      updateError(true);
       return;
     }
-    // eliminar el mensaje previo
-    actualizarError(false);
+    // remove previous message
+    updateError(false);
 
-    // asignar ID
-    // instalamos una librería para generar IDs "npm i uuid" y la importamos
-    cita.id = uuidv4();
+    // asign ID
+    // i've installed and imported a library to generate IDs "npm i uuid"
+    appointment.id = uuidv4();
 
-    // crear cita
-    crearCita(cita);
+    // create appointment
+    createAppointment(appointment);
 
-    // vaciar formulario
-    setCita({
-      mascota: '',
-      propietario: '',
-      fecha: '',
-      hora: '',
-      sintomas: '',
+    // empty form
+    setAppointment({
+      pet: '',
+      owner: '',
+      date: '',
+      hour: '',
+      symptoms: '',
     });
   };
   return (
     <>
-      <h2>Concertar cita</h2>
-      {/* aquí no podemos poner if, ponemos un ternario */}
-      {error ? (
-        <p className="alerta-error">Todos los campos son obligatorios</p>
-      ) : null}
+      <h2>Arrange appointment</h2>
+      {/* remember not to put an if here, only a ternary */}
+      {error ? <p className="alerta-error">All fields are required</p> : null}
 
-      <form onSubmit={submitCita}>
-        <label>Mascota</label>
+      <form onSubmit={submitAppointment}>
+        <label>Pet</label>
         <input
           type="text"
-          name="mascota"
+          name="pet"
           className="u-full-width"
-          placeholder="Nombre de tu mascota"
+          placeholder="Pet name"
           onChange={handleChange}
-          value={mascota}
+          value={pet}
         />
-        <label>Dueño</label>
+        <label>Owner</label>
         <input
           type="text"
-          name="propietario"
+          name="owner"
           className="u-full-width"
-          placeholder="Nombre del dueño"
+          placeholder="Owner name"
           onChange={handleChange}
-          value={propietario}
+          value={owner}
         />
-        <label>Fecha</label>
+        <label>Date</label>
         <input
           type="date"
-          name="fecha"
+          name="date"
           className="u-full-width"
           onChange={handleChange}
-          value={fecha}
+          value={date}
         />
-        <label>Hora</label>
+        <label>Hour</label>
         <input
           type="time"
-          name="hora"
+          name="hour"
           className="u-full-width"
           onChange={handleChange}
-          value={hora}
+          value={hour}
         />
-        <label>Describe los síntomas</label>
+        <label>Describe your pet symptoms</label>
         <textarea
-          name="sintomas"
+          name="symptoms"
           className="u-full-width"
           onChange={handleChange}
-          value={sintomas}
+          value={symptoms}
         ></textarea>
         <button type="submit" className="u-full-width button-primary">
-          Concertar cita
+          Arrange appointment
         </button>
       </form>
     </>
@@ -116,6 +114,6 @@ const Form = ({ crearCita }) => {
 };
 
 Form.propTypes = {
-  crearCita: Proptypes.func.isRequired,
+  createAppointment: Proptypes.func.isRequired,
 };
 export default Form;

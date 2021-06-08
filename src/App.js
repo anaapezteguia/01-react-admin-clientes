@@ -1,50 +1,59 @@
 import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
-import Cita from './components/Cita';
+import Appointment from './components/Appointment';
 
 function App() {
   // local storage
-  let citasIniciales = JSON.parse(localStorage.getItem('citas'));
-  if (!citasIniciales) {
-    citasIniciales = [];
+  let initialAppointments = JSON.parse(localStorage.getItem('appointments'));
+  if (!initialAppointments) {
+    initialAppointments = [];
   }
 
-  // array citas
-  const [citas, setNuevasCitas] = useState(citasIniciales);
+  // appointments array
+  const [appointments, setNewAppointments] = useState(initialAppointments);
 
-  // use effect para controlar el ciclo de vida de las citas
+  // use effect to control appointment's life cycle
   useEffect(() => {
-    localStorage.setItem('citas', JSON.stringify(citas));
-  }, [citas]);
+    localStorage.setItem('appointments', JSON.stringify(appointments));
+  }, [appointments]);
 
-  // función manejadora citas
-  // aqui hacemos spread de citas para que en caso de que haya
-  // mas de 1 cita guardada no las machaque
-  const crearCita = (cita) => {
-    setNuevasCitas([...citas, cita]);
+  // appointment's handler function
+  // here we do spread of appointments so that in case
+  // there is more than 1 saved they are not erased
+  const createAppointment = (appointment) => {
+    setNewAppointments([...appointments, appointment]);
   };
 
-  // función que elimina una cita por su ID
-  const eliminarCita = (id) => {
-    const nuevasCitas = citas.filter((cita) => cita.id !== id);
-    setNuevasCitas(nuevasCitas);
+  // this function removes an appointment by its ID
+  const removeAppointment = (id) => {
+    const newAppointments = appointments.filter(
+      (appointment) => appointment.id !== id
+    );
+    setNewAppointments(newAppointments);
   };
 
-  // mensaje condicional
-  const titulo = citas.length === 0 ? 'No hay citas' : 'Administra tus citas';
+  // conditional message
+  const title =
+    appointments.length === 0
+      ? 'There are no appointments'
+      : 'Manage your appointments';
 
   return (
     <>
-      <h1>Clínica veterinaria “Petting my pet”</h1>
+      <h1>Vet clinic “Petting my pet”</h1>
       <div className="container">
         <div className="row">
           <div className="one-half column">
-            <Form crearCita={crearCita} />
+            <Form createAppointment={createAppointment} />
           </div>
           <div className="one-half column">
-            <h2>{titulo}</h2>
-            {citas.map((cita) => (
-              <Cita key={cita.id} cita={cita} eliminarCita={eliminarCita} />
+            <h2>{title}</h2>
+            {appointments.map((appointment) => (
+              <Appointment
+                key={appointment.id}
+                appointment={appointment}
+                removeAppointment={removeAppointment}
+              />
             ))}
           </div>
         </div>
