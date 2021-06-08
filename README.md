@@ -1,13 +1,13 @@
 ![www.ana-am.es](./src/images/ana_am_es-logo.png)
 
-# Administrador de pacientes (mascotas)
+# Pet appointment's manager
 
-Este proyecto es pequeño gestor de citas para pacientes veterinarios realizado con React.
+This project is a small appointment manager for veterinary patients made with React.
 
-A través de un formulario insertamos citas en una app que podemos ver en la misma pantalla y las guardamos y/o eliminamos de Local Storage.
+Through a form we insert appointments in an app that we can see on the same screen and save and/or delete them from Local Storage.
 
-**Lo que he aprendido:** Destructuring de props y a usar useEffect para controlar Local Storage.
+**What I've learned:** Props destructuring and using useEffect to control Local Storage.
 
-Este proyecto forma parte del curso de Udemy [React - La Guía Completa: Hooks Context Redux MERN +15 Apps](https://www.udemy.com/course/react-de-principiante-a-experto-creando-mas-de-10-aplicaciones/)
+This project is part of the Udemy [React - La Guía Completa: Hooks Context Redux MERN +15 Apps](https://www.udemy.com/course/react-de-principiante-a-experto-creando-mas-de-10-aplicaciones/) course.
 
 © Ana Apezteguía Martínez.
