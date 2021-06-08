@@ -1,10 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from './components/Form';
 import Cita from './components/Cita';
 
 function App() {
+  // local storage
+  let citasIniciales = JSON.parse(localStorage.getItem('citas'));
+  if (!citasIniciales) {
+    citasIniciales = [];
+  }
+
   // array citas
-  const [citas, setNuevasCitas] = useState([]);
+  const [citas, setNuevasCitas] = useState(citasIniciales);
+
+  // use effect para controlar el ciclo de vida de las citas
+  useEffect(() => {
+    localStorage.setItem('citas', JSON.stringify(citas));
+  }, [citas]);
 
   // función manejadora citas
   // aqui hacemos spread de citas para que en caso de que haya
